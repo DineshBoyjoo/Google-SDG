@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:animate_do/animate_do.dart';
+
 
 bool firstRun = false;
+var diseaseName=["COVID-19","Tuberculosis","Malaria","Flu"];
 var mediaURL = [
   'https://www.foundationhealth.org/.api2/binaries/0PhOWfdecz/thumbnails/Icon-germ-04.png?width=300',
   'https://image.flaticon.com/icons/png/512/773/773895.png',
   'https://thumbs.dreamstime.com/b/malaria-mosquito-icon-vector-outline-illustration-malaria-mosquito-icon-vector-outline-malaria-mosquito-sign-isolated-contour-168860447.jpg',
   'https://thumbs.dreamstime.com/z/sneeze-common-cold-flu-icon-as-eps-file-190899647.jpg'];
+var activeCountDisease = [ 10 ,11,12,13 ];
+String warningBannerData = "40 New Covid Cases today 21/03/2021";
 
 void main() {
+
+  // if(firstRun=false){
+  //   firstRun=true;
+  //   runApp(MyApp());
+  //
+  // }
+  // else{
+  //   runApp(GettingStarted());
+  // }
   runApp(MyApp());
+
 
 }
 
@@ -55,7 +71,9 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+
   @override
+
   _MyHomePageState createState() => _MyHomePageState();
 }
 
@@ -108,15 +126,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 "assets/logo.png", height: 100, width:100),
 
 
+           // Pulse(child: Text("Warning Config") , infinite:true,),
+
+
+
 
 
           Text("\n"),
             Text("Welcome to DinfoSEASE",style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
             Text("\n"),
-            Text("your platform to access disease statistics and up to date preventive measures.",textAlign: TextAlign.center,style:TextStyle(fontSize: 15)),
+            Text("Your health companion platform to access disease statistics and up to date preventive measures.",textAlign: TextAlign.center,style:TextStyle(fontSize: 15)),
+            //Text("\n+ Many other features!",textAlign: TextAlign.center,style:TextStyle(fontSize: 15)),
 
             Text("\n"),
 
+            SlideInLeft(child:
             TextButton(
 
                 child: Text(' Go to Dashboard ', style:TextStyle(backgroundColor: Colors.orange,color:Colors.white,fontSize: 20,)),
@@ -128,7 +152,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
 
                 }
-            ),
+            ),),
+
+
+            SlideInRight(
+              child: Text("Warning: "+warningBannerData,
+                style: TextStyle(
+                fontSize: 20,backgroundColor: Colors.yellow,
+            ),), ),
 
 
 
@@ -202,12 +233,12 @@ class GettingStarted extends StatelessWidget {
 
                           TextButton(
 
-                              child: Text('COVID-19'), //First Disease
+                              child: Text(diseaseName[0]), //First Disease
                               onPressed: () {
                                 print('Clicked on a disease');
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: "COVID-19",descript: mediaURL[0])),
+                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: diseaseName[0],descript: mediaURL[0])),
                                 );
 
                               }
@@ -215,8 +246,6 @@ class GettingStarted extends StatelessWidget {
 
 
                       ],
-
-
 
                       ),
 
@@ -232,12 +261,12 @@ class GettingStarted extends StatelessWidget {
                           TextButton(
 
 
-                              child: Text('Tuberculosis'), //Second Disease
+                              child: Text(diseaseName[1]), //Second Disease
                               onPressed: () {
                                 print('Clicked on a disease');
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: "Tuberculosis",descript: mediaURL[1])),
+                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: diseaseName[1],descript: mediaURL[1])),
                                 );
 
                               }
@@ -260,12 +289,12 @@ class GettingStarted extends StatelessWidget {
                           Image.network(mediaURL[2],width:50,height:50), //Third Disease Image
                           TextButton(
 
-                              child: Text('Malaria'), //Third Disease
+                              child: Text(diseaseName[2]), //Third Disease
                               onPressed: () {
                                 print('Clicked on a disease');
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: "Malaria",descript: mediaURL[2])),
+                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: diseaseName[2],descript: mediaURL[2])),
                                 );
 
                               }
@@ -277,12 +306,12 @@ class GettingStarted extends StatelessWidget {
                           Image.network(mediaURL[3],width:50,height:50), //Fourth Disease Image
                           TextButton(
 
-                              child: Text('Flu'), //Fourth Disease
+                              child: Text(diseaseName[3]), //Fourth Disease
                               onPressed: () {
                                 print('Clicked on a disease');
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: "Flu",descript: mediaURL[3])),
+                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: diseaseName[3],descript: mediaURL[3])),
                                 );
 
                               }
@@ -375,15 +404,17 @@ class DiseaseViewer extends StatelessWidget {
       body: Center(
         child:
 
-        Column(
+        ListView(
           children: <Widget>[
 
             Row(
+
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
 
                Image.network(descript,width:50,height:50),
                 Column(children: [
+
                   Text(disease),
                   Text("X Active Cases"),
 
@@ -395,7 +426,114 @@ class DiseaseViewer extends StatelessWidget {
 
             Divider(
                 color: Colors.black
-            )
+            ),
+
+
+            Text("Symptoms\n",textAlign: TextAlign.center,),
+
+            Text("If any Symptoms, place here"),
+            Text("If any Symptoms, place here"),
+
+            Text("\n"),
+            Divider(
+                color: Colors.black
+            ),
+
+            Text("Treatment\n",textAlign: TextAlign.center,),
+
+            Text("If any treatment, place here"),
+
+
+
+
+            TextButton(
+                style: ButtonStyle(
+
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  overlayColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+
+                      if (states.contains(MaterialState.focused) ||
+                          states.contains(MaterialState.pressed))
+                        return Colors.white.withOpacity(0.2);
+                      else {
+                        return null;
+                      }
+                    },
+                  ),
+
+                ),
+                onPressed: () =>
+                {
+                  _findNearestHealthCenter()  },
+
+                child: new Row(
+                  children: [
+
+                    Icon(
+                      Icons.add_location_rounded,
+                      color: Colors.white,
+                      size: 25.0,
+                      semanticLabel: 'Open Maps to get direction to closest health center',
+                    ),
+                    Text(' Go to your nearest Health Center!'),
+                  ],
+                ),
+            ),
+
+            TextButton(
+              style: ButtonStyle(
+
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                overlayColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+
+                    if (states.contains(MaterialState.focused) ||
+                        states.contains(MaterialState.pressed))
+                      return Colors.white.withOpacity(0.2);
+                    else {
+                      return null;
+                    }
+                  },
+                ),
+
+              ),
+              onPressed: () =>
+              {
+                _callHotlineHealth()  },
+
+              child: new Row(
+                children: [
+
+                  Icon(
+                    Icons.local_phone,
+                    color: Colors.white,
+                    size: 25.0,
+                    semanticLabel: 'Open Dialer to compose hotline of Health Dept in your region ',
+                  ),
+                  Text(' Call Local Health Hotline!'),
+                ],
+              ),
+            ),
+
+
+
+
+
+
+
+            Divider(
+                color: Colors.black
+            ),
+
+
+
+
+
+
+
           ],
         )
 
@@ -407,4 +545,35 @@ class DiseaseViewer extends StatelessWidget {
   }
 
 
+}
+
+
+
+_findNearestHealthCenter() async {
+  final String keyWord = "health centers near me";
+  final String urlConstruct = "https://www.google.com/maps/search/"+keyWord;
+
+
+
+  if (await canLaunch(urlConstruct)) {
+    await launch(urlConstruct);
+  }
+   else {
+    throw "Cannot launch Maps";
+  }
+}
+
+
+_callHotlineHealth() async {
+  final String urlConstruct = "tel:114";
+
+
+
+
+  if (await canLaunch(urlConstruct)) {
+    await launch(urlConstruct);
+  }
+  else {
+    throw "Cannot call the hotline";
+  }
 }
