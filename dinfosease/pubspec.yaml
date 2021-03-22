@@ -21,12 +21,14 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  google_maps_flutter: ^2.0.1
   animate_do: ^2.0.0
   url_launcher: ^5.7.10
   flutter:
     sdk: flutter
 
-  geolocator: ^5.3.2+2
+
+
 
 
   # The following adds the Cupertino Icons font to your application.

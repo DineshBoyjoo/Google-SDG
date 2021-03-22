@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:animate_do/animate_do.dart';
+import 'dart:async';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+
+
+final String country = "Mauritius";
+final String population = "1.2M";
+
+
+var emmergencyContact = ['456','123','789'];
+
+final String flag = "https://media.gettyimages.com/photos/national-flag-of-the-republic-of-mauritius-picture-id645009405?s=612x612";
 
 
 bool firstRun = false;
@@ -122,6 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children:[
 
+
             Image.asset(
                 "assets/logo.png", height: 100, width:100),
 
@@ -143,7 +157,8 @@ class _MyHomePageState extends State<MyHomePage> {
             SlideInLeft(child:
             TextButton(
 
-                child: Text(' Go to Dashboard ', style:TextStyle(backgroundColor: Colors.orange,color:Colors.white,fontSize: 20,)),
+                child:
+                Text(' Go to Dashboard ', style:TextStyle(backgroundColor: Colors.orange,color:Colors.white,fontSize: 23,)),
                 onPressed: () {
                   print('User want to get Started!');
                   Navigator.push(
@@ -154,6 +169,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
             ),),
 
+
+            SlideInLeft(child:
+            TextButton(
+
+                child:
+                Text(' Configure Settings ', style:TextStyle(backgroundColor: Colors.red,color:Colors.white,fontSize: 23,)),
+                onPressed: () {
+                  print('User want to configure settings!');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ConfigureSetting()),
+                  );
+
+                }
+            ),),
+
+            Text("\n"),
 
             SlideInRight(
               child: Text("Warning: "+warningBannerData,
@@ -176,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class GettingStarted extends StatelessWidget {
 
-  final String _country="Mauritius";
+
 
   @override
   Widget build(BuildContext context) {
@@ -191,13 +223,13 @@ class GettingStarted extends StatelessWidget {
         child: ListView(
             padding: EdgeInsets.fromLTRB(30, 10, 1, 0),
           children: [
-            Text("Population: 1.2M ",style: TextStyle(fontSize: 14),),
+            Text("Population: "+population,style: TextStyle(fontSize: 14),),
 
             Row(
 
               children: [
-                Text("Country: " +_country ,style: TextStyle(fontSize: 14),),
-                Image.network("https://media.gettyimages.com/photos/national-flag-of-the-republic-of-mauritius-picture-id645009405?s=612x612", width:50,height:50,),
+                Text("Country: " +country ,style: TextStyle(fontSize: 14),),
+                Image.network(flag, width:50,height:50,),
               ],
             ),
 
@@ -370,7 +402,15 @@ class ViewMap extends StatelessWidget {
       ),
       body: Center(
 
-        child: Text("Test"),
+        child: ListView(
+          children: [
+
+
+          ],
+        )
+
+
+
 
 
       ),
@@ -379,6 +419,37 @@ class ViewMap extends StatelessWidget {
 
 
 }
+
+
+class ConfigureSetting extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Settings",style:TextStyle(fontSize: 20)),
+        backgroundColor: Colors.orange,
+        centerTitle:true,
+      ),
+      body: Center(
+
+          child: ListView(
+            children: [
+
+
+            ],
+          )
+
+
+
+
+
+      ),
+    );
+  }
+
+
+}
+
 
 
 
@@ -519,6 +590,43 @@ class DiseaseViewer extends StatelessWidget {
             ),
 
 
+            TextButton(
+              style: ButtonStyle(
+
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                overlayColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+
+                    if (states.contains(MaterialState.focused) ||
+                        states.contains(MaterialState.pressed))
+                      return Colors.white.withOpacity(0.2);
+                    else {
+                      return null;
+                    }
+                  },
+                ),
+
+              ),
+              onPressed: () =>
+              {
+
+                messageContacts(disease)  },
+
+              child: new Row(
+                children: [
+
+                  Icon(
+                    Icons.message_outlined,
+                    color: Colors.white,
+                    size: 25.0,
+                    semanticLabel: 'Compose your message to the list of contact',
+                  ),
+                  Text(' Request help from Emergency List'),
+                ],
+              ),
+            ),
+
 
 
 
@@ -575,5 +683,25 @@ _callHotlineHealth() async {
   }
   else {
     throw "Cannot call the hotline";
+  }
+}
+
+
+messageContacts(String m) async {
+
+  String MessageWarn = "*THIS IS AN AUTOMATED MESSAGE FROM DinfoSEASE Application*"
+      "\n I need medical assistance right now and I am suspicious about "+m+" disease. Please Call me as soon as possible";
+
+  String concatNumbers="";
+  for(int y=0;y<emmergencyContact.length;y++){
+    concatNumbers=concatNumbers+","+emmergencyContact[y];
+  }
+  final String urlConstruct = "sms:"+concatNumbers+"?&body="+MessageWarn;
+
+  if (await canLaunch(urlConstruct)) {
+    await launch(urlConstruct);
+  }
+  else {
+    throw "Cannot Use messaging services for the moment";
   }
 }
