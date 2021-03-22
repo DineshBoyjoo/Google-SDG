@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:animate_do/animate_do.dart';
 import 'dart:async';
-
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+
+
+var _phoneNum = "N/A";
+
+final ageController = new TextEditingController();
 
 
 
@@ -11,7 +19,7 @@ final String country = "Mauritius";
 final String population = "1.2M";
 
 
-var emmergencyContact = ['456','123','789'];
+var emmergencyContact = []; //Serves as broadcast Address for Private emergency Message. Fill in with numbers if dev wishes to broadcast without adding number to interface
 
 final String flag = "https://media.gettyimages.com/photos/national-flag-of-the-republic-of-mauritius-picture-id645009405?s=612x612";
 
@@ -39,6 +47,36 @@ void main() {
   runApp(MyApp());
 
 
+}
+
+class Storage{
+
+  Future<String> get _localPath async{
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return File("$path/contactList.txt");
+  }
+
+  Future<String> readContact() async {
+    try{
+      final file =  await _localFile;
+      String contents = await file.readAsString();
+      return contents;
+    }catch(e){
+      return "Error";
+    }
+    
+
+  }
+
+  Future<File> writeContact(String data) async {
+    final file = await _localFile;
+    return file.writeAsString('$data');
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -70,7 +108,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
 class MyHomePage extends StatefulWidget {
+  final Storage storage = Storage();
+
+
+
   MyHomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -104,21 +148,35 @@ class _MyHomePageState extends State<MyHomePage> {
   //   });
   // }
 
+
+  String compon = "";
+  bool AllowedEditEmergency =false;
+@override
+void initState(){
+   widget.storage.readContact().then((String value)
+       {
+         setState(() {
+           compon = value;
+         });
+       }
+
+   );
+ }
+
+ Future<File> _showContact(){
+   setState(() {
+     compon=_phoneNum;
+     //compon=""; //To clear all fields used for testing
+     _phoneNum = ageController.text;
+   });
+
+   return widget.storage.writeContact(compon);
+ }
+
   @override
   Widget build(BuildContext context) {
 
 
-
-    // if(firstRun=false){
-    //   firstRun=true;
-    // }
-    // else{
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => tester()),
-    //   );
-    //
-    // }
 
 
     return Scaffold(
@@ -130,21 +188,17 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle:true,
       ),
       body: Center(
+
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: ListView(
           children:[
 
 
+            //Text("$compon"),
+            //FlatButton(child: Text("Click Me"),onPressed: _showContact ),
             Image.asset(
                 "assets/logo.png", height: 100, width:100),
-
-
-           // Pulse(child: Text("Warning Config") , infinite:true,),
-
-
-
-
 
           Text("\n"),
             Text("Welcome to DinfoSEASE",style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
@@ -169,21 +223,85 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
             ),),
 
+            SlideInLeft(child:
+            TextButton(
+                child:
+                Text(' Send SOS Message ', style:TextStyle(backgroundColor: Colors.red,color:Colors.white,fontSize: 23,)),
+                onPressed: () {
+                  print('User wants to send sos');
+                  messageContacts(
+                      "*THIS IS AN AUTOMATED MESSAGE FROM DinfoSEASE Application* I need medical help right now. Please contact me immediately"
+                  );
+                }
+            ),),
+
+            // SlideInLeft(child:
+            // TextButton(
+            //
+            //     child:
+            //     Text(' Configure Settings ', style:TextStyle(backgroundColor: Colors.blue,color:Colors.white,fontSize: 23,)),
+            //     onPressed: () {
+            //       print('User want to configure settings!');
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(builder: (context) => ConfigureSetting()),
+            //       );
+            //
+            //     }
+            // ),),
+
 
             SlideInLeft(child:
             TextButton(
 
                 child:
-                Text(' Configure Settings ', style:TextStyle(backgroundColor: Colors.red,color:Colors.white,fontSize: 23,)),
+                Text('Toggle Emergency List', style:TextStyle(backgroundColor: Colors.blue,color:Colors.white,fontSize: 23,)),
                 onPressed: () {
-                  print('User want to configure settings!');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ConfigureSetting()),
-                  );
+                  print('User want to Access Emergency List!');
+
+
+                  setState(() {
+                    AllowedEditEmergency = !AllowedEditEmergency;
+                  });
+
+
 
                 }
             ),),
+
+            if (AllowedEditEmergency)
+              new Column(
+              children: [
+
+                Divider(
+                    color: Colors.black
+                ),
+                Text("Enter a contact number followed by another contact number using   ' , '\n\n For Example '999,114,5925XXXX' and so on \n", style:TextStyle(color:Colors.grey[500],)),
+                TextField(
+                  controller: ageController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    hintText: "Enter Emergency Contact Numbers.",
+                  ),
+                ),
+
+                RaisedButton(
+
+                    child: Text("Submit"),
+                    onPressed:
+                      _showContact
+
+
+                    ),
+
+                Text("Current Emergency Contact List: \n $_phoneNum"),
+
+                Divider(
+                    color: Colors.black
+                ),
+            ],),
+
+
 
             Text("\n"),
 
@@ -204,6 +322,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
 
 
 class GettingStarted extends StatelessWidget {
@@ -270,7 +389,7 @@ class GettingStarted extends StatelessWidget {
                                 print('Clicked on a disease');
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: diseaseName[0],descript: mediaURL[0])),
+                                  MaterialPageRoute(builder: (context) => DiseaseViewer(location: 0, )),
                                 );
 
                               }
@@ -298,7 +417,7 @@ class GettingStarted extends StatelessWidget {
                                 print('Clicked on a disease');
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: diseaseName[1],descript: mediaURL[1])),
+                                  MaterialPageRoute(builder: (context) => DiseaseViewer(location: 1, )),
                                 );
 
                               }
@@ -326,7 +445,7 @@ class GettingStarted extends StatelessWidget {
                                 print('Clicked on a disease');
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: diseaseName[2],descript: mediaURL[2])),
+                                  MaterialPageRoute(builder: (context) => DiseaseViewer(location: 2, )),
                                 );
 
                               }
@@ -343,7 +462,7 @@ class GettingStarted extends StatelessWidget {
                                 print('Clicked on a disease');
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => DiseaseViewer(disease: diseaseName[3],descript: mediaURL[3])),
+                                  MaterialPageRoute(builder: (context) => DiseaseViewer(location: 3, )),
                                 );
 
                               }
@@ -421,45 +540,82 @@ class ViewMap extends StatelessWidget {
 }
 
 
-class ConfigureSetting extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings",style:TextStyle(fontSize: 20)),
-        backgroundColor: Colors.orange,
-        centerTitle:true,
-      ),
-      body: Center(
+// class ConfigureSetting extends StatelessWidget {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Settings",style:TextStyle(fontSize: 20)),
+//         backgroundColor: Colors.orange,
+//         centerTitle:true,
+//       ),
+//       body: Center(
+//
+//           child: ListView(
+//             children: [
+//
+//               TextField(
+//                 controller: ageController,
+//                 keyboardType: TextInputType.phone,
+//                 decoration: InputDecoration(
+//                   hintText: "Enter Text",
+//                 ),
+//               ),
+//
+//               TextButton(
+//
+//                   child: Text("Submit"),
+//                   onPressed: (){
+//                     //setState(() { //Avoiding use of multiple setState
+//                     _phoneNum = ageController.text;
+//                       Navigator.push(
+//                         context,
+//                         MaterialPageRoute(builder: (context) => ConfigureSetting()),
+//                       );
+//                     //});
+//
+//                   }),
+//
+//               Text("Your Num: $_phoneNum"),
+//
+//
+//
+//
+//             ],
+//           )
+//
+//
+//
+//
+//
+//       ),
+//     );
+//   }
+//
+//
+// }
 
-          child: ListView(
-            children: [
-
-
-            ],
-          )
 
 
 
 
 
-      ),
-    );
-  }
 
 
-}
+
+
 
 
 
 
 class DiseaseViewer extends StatelessWidget {
 
-  final String disease;
-  final String descript; //URL of image
+  final int location;
+//URL of image
 
   // receive data from the FirstScreen as a parameter
-  DiseaseViewer({Key key, @required this.disease, @required this.descript}) : super(key: key);
+  DiseaseViewer({Key key, @required this.location}) : super(key: key);
 
   // receive data from the FirstScreen as a parameter
 
@@ -468,7 +624,7 @@ class DiseaseViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text( disease,style:TextStyle(fontSize: 17)),
+        title: Text(diseaseName[location],style:TextStyle(fontSize: 17)),
         backgroundColor: Colors.orange,
         centerTitle:true,
       ),
@@ -483,10 +639,10 @@ class DiseaseViewer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
 
-               Image.network(descript,width:50,height:50),
+               Image.network(mediaURL[location],width:50,height:50),
                 Column(children: [
 
-                  Text(disease),
+                  Text(diseaseName[location]),
                   Text("X Active Cases"),
 
                 ],),
@@ -513,8 +669,6 @@ class DiseaseViewer extends StatelessWidget {
             Text("Treatment\n",textAlign: TextAlign.center,),
 
             Text("If any treatment, place here"),
-
-
 
 
             TextButton(
@@ -611,7 +765,9 @@ class DiseaseViewer extends StatelessWidget {
               onPressed: () =>
               {
 
-                messageContacts(disease)  },
+                  messageContacts(
+                      "*THIS IS AN AUTOMATED MESSAGE FROM DinfoSEASE Application* I need medical assistance right now and I am suspicious about "+diseaseName[location]+" disease. Please Call me as soon as possible"
+                  )  },
 
               child: new Row(
                 children: [
@@ -675,9 +831,6 @@ _findNearestHealthCenter() async {
 _callHotlineHealth() async {
   final String urlConstruct = "tel:114";
 
-
-
-
   if (await canLaunch(urlConstruct)) {
     await launch(urlConstruct);
   }
@@ -686,13 +839,12 @@ _callHotlineHealth() async {
   }
 }
 
+messageContacts(String MessageWarn) async {
 
-messageContacts(String m) async {
 
-  String MessageWarn = "*THIS IS AN AUTOMATED MESSAGE FROM DinfoSEASE Application*"
-      "\n I need medical assistance right now and I am suspicious about "+m+" disease. Please Call me as soon as possible";
 
-  String concatNumbers="";
+
+  String concatNumbers=_phoneNum;
   for(int y=0;y<emmergencyContact.length;y++){
     concatNumbers=concatNumbers+","+emmergencyContact[y];
   }
@@ -705,3 +857,9 @@ messageContacts(String m) async {
     throw "Cannot Use messaging services for the moment";
   }
 }
+
+
+
+
+
+
