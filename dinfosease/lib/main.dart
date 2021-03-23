@@ -7,17 +7,11 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
-
-var _phoneNum = "N/A";
-
-final ageController = new TextEditingController();
-
+var _phoneNum = "";
 
 
 final String country = "Mauritius";
 final String population = "1.2M";
-
 
 var emmergencyContact = []; //Serves as broadcast Address for Private emergency Message. Fill in with numbers if dev wishes to broadcast without adding number to interface
 
@@ -69,7 +63,7 @@ class Storage{
     }catch(e){
       return "Error";
     }
-    
+
 
   }
 
@@ -135,6 +129,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final PhoneController = new TextEditingController();
   // int _counter = 0;
   //
   // void _incrementCounter() {
@@ -165,9 +160,11 @@ void initState(){
 
  Future<File> _showContact(){
    setState(() {
+     _phoneNum = PhoneController.text;
      compon=_phoneNum;
+     //compon=compon+"123,";
      //compon=""; //To clear all fields used for testing
-     _phoneNum = ageController.text;
+
    });
 
    return widget.storage.writeContact(compon);
@@ -195,8 +192,15 @@ void initState(){
           children:[
 
 
-            //Text("$compon"),
-            //FlatButton(child: Text("Click Me"),onPressed: _showContact ),
+            //Text("$compon"),// Used for debugging purposes
+            //FlatButton(child: Text("Click Me"),onPressed: _showContact ), // Used for debugging purposes
+
+            SlideInRight(
+              child: Text("Warning: "+warningBannerData,
+                style: TextStyle(
+                  fontSize: 20,backgroundColor: Colors.yellow,
+                ),), ),
+
             Image.asset(
                 "assets/logo.png", height: 100, width:100),
 
@@ -278,7 +282,7 @@ void initState(){
                 ),
                 Text("Enter a contact number followed by another contact number using   ' , '\n\n For Example '999,114,5925XXXX' and so on \n", style:TextStyle(color:Colors.grey[500],)),
                 TextField(
-                  controller: ageController,
+                  controller: PhoneController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: "Enter Emergency Contact Numbers.",
@@ -291,10 +295,9 @@ void initState(){
                     onPressed:
                       _showContact
 
-
                     ),
 
-                Text("Current Emergency Contact List: \n $_phoneNum"),
+                Text("Current Emergency Contact List: \n $compon"),
 
                 Divider(
                     color: Colors.black
@@ -305,11 +308,7 @@ void initState(){
 
             Text("\n"),
 
-            SlideInRight(
-              child: Text("Warning: "+warningBannerData,
-                style: TextStyle(
-                fontSize: 20,backgroundColor: Colors.yellow,
-            ),), ),
+
 
 
 
@@ -556,7 +555,7 @@ class ViewMap extends StatelessWidget {
 //             children: [
 //
 //               TextField(
-//                 controller: ageController,
+//                 controller: PhoneController,
 //                 keyboardType: TextInputType.phone,
 //                 decoration: InputDecoration(
 //                   hintText: "Enter Text",
@@ -568,7 +567,7 @@ class ViewMap extends StatelessWidget {
 //                   child: Text("Submit"),
 //                   onPressed: (){
 //                     //setState(() { //Avoiding use of multiple setState
-//                     _phoneNum = ageController.text;
+//                     _phoneNum = PhoneController.text;
 //                       Navigator.push(
 //                         context,
 //                         MaterialPageRoute(builder: (context) => ConfigureSetting()),
@@ -643,7 +642,7 @@ class DiseaseViewer extends StatelessWidget {
                 Column(children: [
 
                   Text(diseaseName[location]),
-                  Text("X Active Cases"),
+                  Text(activeCountDisease[location].toString()+" Active Cases"),
 
                 ],),
 
