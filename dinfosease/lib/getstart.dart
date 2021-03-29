@@ -25,14 +25,22 @@ class getStartState extends State<getStart> {
               padding: EdgeInsets.fromLTRB(30, 10, 1, 0),
               children: [
 
-                Text("Population: "+population,style: TextStyle(fontSize: 14),),
-
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround ,
                   children: [
                     Text("Country: " +country ,style: TextStyle(fontSize: 14),),
                     Image.network(flag, width:50,height:50,),
                   ],
                 ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround ,
+                  children:[
+                  Text("Population: ",style: TextStyle(fontSize: 14),),
+                    Text(population),
+                  ],
+                ),
+
 
 
                 Text("\n Active Disease Dashboard",textAlign: TextAlign.justify,),

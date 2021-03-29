@@ -62,11 +62,14 @@ class MydiseaseState extends State<disease> {
               Text("If any Symptoms, place here"),
               Text("If any Symptoms, place here"),
               Text("\n"),
+
               Divider(
                   color: Colors.black
               ),
+
               Text("Treatment\n",textAlign: TextAlign.center,),
               Text("If any treatment, place here"),
+
               TextButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
@@ -100,6 +103,8 @@ class MydiseaseState extends State<disease> {
                   ],
                 ),
               ),
+
+
 
               TextButton(
                 style: ButtonStyle(

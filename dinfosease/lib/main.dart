@@ -7,13 +7,39 @@ import 'package:dinfosease/functions.dart';
 import 'package:dinfosease/fileIO.dart';
 import 'package:dinfosease/globalvar.dart';
 import 'package:dinfosease/getstart.dart';
-
+import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart' ;
 
   var _phoneNum = ""; //Global Var used to capture input data and write to text file
 
   void main() {
+
     runApp(MyApp());
   }
+
+_initialiseDinfoSEASE() async {
+
+  Position getCountry = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  final coordinates = new Coordinates(getCountry.latitude, getCountry.longitude);
+  final addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+  var firstOccurence = addresses.first;
+
+  //return Promise.resolve(1).then(() => firstOccurence.countryName.toString());
+  //return Promise.resolve(firstOccurence.countryName.toString());
+
+  country=firstOccurence.countryName.toString();
+
+  print("----------DEBUG----------");
+  print("Country Name: "+firstOccurence.countryName.toString());
+  print("Country Code: "+firstOccurence.countryCode.toString());
+  flag="https://flagpedia.net/data/flags/w580/"+firstOccurence.countryCode.toString().toLowerCase()+".png";
+  print("Flag: $flag"); //For testing
+  print("----------DEBUG----------");
+
+}
+
+
+
 
   class MyApp extends StatelessWidget {
     // This widget is the root of your application.
@@ -44,13 +70,19 @@ import 'package:dinfosease/getstart.dart';
   }
 
   class _MyHomePageState extends State<MyHomePage> {
+
       final PhoneController = new TextEditingController();
       String compon = "";
       bool AllowedEditEmergency =false;
 
       @override
 
-      void initState(){ //To obtain phone numbers from file contactList.txt
+      void initState(){
+
+        _initialiseDinfoSEASE(); //Calling this method will fetch location of device and display country name with flags and other relevant informations.
+
+
+        //To obtain phone numbers from file contactList.txt
          widget.storage.readContact().then((String value)
              {
                setState(() {
@@ -119,6 +151,7 @@ import 'package:dinfosease/getstart.dart';
                     child:
                     Text(' Go to Dashboard ', style:TextStyle(color:Colors.white,fontSize: 23,)),
                     onPressed: () {
+
                       print('User want to get Started!');
                       Navigator.push(
                         context,
@@ -193,6 +226,11 @@ import 'package:dinfosease/getstart.dart';
                     ),
                 ],),
                 Text("\n"),
+
+
+
+
+
               ],
 
             ),
@@ -201,3 +239,16 @@ import 'package:dinfosease/getstart.dart';
         );
       }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
