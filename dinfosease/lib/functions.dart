@@ -1,6 +1,6 @@
 import 'package:url_launcher/url_launcher.dart';
 import 'package:geolocator/geolocator.dart' ;
-import 'package:geocode/geocode.dart';
+
 
 
 
@@ -18,11 +18,7 @@ messageContacts(String MessageWarn,var _phoneNum,var emergencyContact) async { /
   MessageWarn=MessageWarn+" My Last Online Location is: https://www.google.com/maps?q="+lastPosition.latitude.toString()+"+"+lastPosition.longitude.toString(); //For Current Location
   //print("MSG: "+MessageWarn);
 
-  GeoCode geoCode = GeoCode();
 
-  //Coordinates coordinates = await geoCode.forwardGeocoding(address: "532 S Olive St, Los Angeles, CA 90013");
-
-  Coordinates coordinates = await geoCode.forwardGeocoding(address: "532 S Olive St, Los Angeles, CA 90013");
 
   // print("Latitude: ${coordinates.latitude}");
   // print("Longitude: ${coordinates.longitude}");

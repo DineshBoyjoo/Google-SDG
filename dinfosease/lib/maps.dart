@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:web_scraper/web_scraper.dart';
 
 class maps extends StatefulWidget {
   @override
@@ -25,6 +25,9 @@ class mapsState extends State<maps> {
               //Map Content Goes here
                 Text("This is map Data"),
 
+              //TextButton(onPressed:  _funcTest, child: Text("Click Me for dta")),
+
+
             ],
           )
 
@@ -32,3 +35,16 @@ class mapsState extends State<maps> {
     );
   }
 }
+
+
+
+//  _funcTest() async {
+//   final webScraper = WebScraper('https://worldpopulationreview.com');
+//   if (await webScraper.loadWebPage('/')) {
+//     List<Map<String, dynamic>> elements =
+//     webScraper.getElement('div.center', ['title']);
+//     print(elements[0]);
+//   }
+//
+// }
+

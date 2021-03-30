@@ -151,18 +151,19 @@ class getStartState extends State<getStart> {
                 ),
 
 
-                TextButton(
-
-                    child: Text(' View Map ', style:TextStyle(backgroundColor: Colors.blue,color:Colors.white,fontSize: 20,)),
-                    onPressed: () {
-                      print('User want to access map!');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => maps()),
-                      );
-
-                    }
-                ),
+                // Extensions
+                // TextButton(
+                //
+                //     child: Text(' View Map ', style:TextStyle(backgroundColor: Colors.blue,color:Colors.white,fontSize: 20,)),
+                //     onPressed: () {
+                //       print('User want to access map!');
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(builder: (context) => maps()),
+                //       );
+                //
+                //     }
+                // ),
 
               ]
 

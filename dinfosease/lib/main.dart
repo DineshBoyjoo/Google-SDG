@@ -10,14 +10,25 @@ import 'package:dinfosease/getstart.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart' ;
 
+
   var _phoneNum = ""; //Global Var used to capture input data and write to text file
 
   void main() {
+
+
+
+
+
+
+
+
+
 
     runApp(MyApp());
   }
 
 _initialiseDinfoSEASE() async {
+
 
   Position getCountry = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   final coordinates = new Coordinates(getCountry.latitude, getCountry.longitude);
@@ -36,12 +47,32 @@ _initialiseDinfoSEASE() async {
   print("Flag: $flag"); //For testing
   print("----------DEBUG----------");
 
+
+
+
+
+
+  //Populating Symptoms List
+  // symp1.add("qwerty");
+  // symp1.add("asdf");
+  // symp1.add("zxcv");
+  //
+  // symp2.add("qwerty");
+  // symp2.add("asdf");
+  //
+  // symp3.add("qwerty");
+  // symp3.add("asdf");
+  // symp3.add("zxcv");
+  //
+  // symp4.add("qwerty");
+
 }
 
 
 
 
   class MyApp extends StatelessWidget {
+
     // This widget is the root of your application.
     @override
     Widget build(BuildContext context) {
@@ -70,6 +101,7 @@ _initialiseDinfoSEASE() async {
   }
 
   class _MyHomePageState extends State<MyHomePage> {
+    final ScrollController _scrollController = ScrollController();
 
       final PhoneController = new TextEditingController();
       String compon = "";
@@ -117,7 +149,9 @@ _initialiseDinfoSEASE() async {
             // Center is a layout widget. It takes a single child and positions it
             // in the middle of the parent.
             child: ListView(
+
               children:[
+
 
                 //Text("$compon"),// Used for debugging purposes
                 //FlatButton(child: Text("Click Me"),onPressed: _showContact ), // Used for debugging purposes
@@ -151,6 +185,7 @@ _initialiseDinfoSEASE() async {
                     child:
                     Text(' Go to Dashboard ', style:TextStyle(color:Colors.white,fontSize: 23,)),
                     onPressed: () {
+
 
                       print('User want to get Started!');
                       Navigator.push(
@@ -192,8 +227,9 @@ _initialiseDinfoSEASE() async {
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),),)),
                     child:
-                    Text(' Toggle Emergency List ', style:TextStyle(color:Colors.white,fontSize: 23,)),
+                    Text(' Toggle Setting List ', style:TextStyle(color:Colors.white,fontSize: 23,)),
                     onPressed: () {
+
                       print('User want to Access Emergency List!');
                       setState(() {
                         AllowedEditEmergency = !AllowedEditEmergency;

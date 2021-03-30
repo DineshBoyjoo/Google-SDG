@@ -59,8 +59,39 @@ class MydiseaseState extends State<disease> {
                   color: Colors.black
               ),
               Text("Symptoms\n",textAlign: TextAlign.center,),
-              Text("If any Symptoms, place here"),
-              Text("If any Symptoms, place here"),
+
+              if(widget.location.toInt()==0)
+                Text(symp1,textAlign: TextAlign.center,),
+
+              if(widget.location.toInt()==1)
+                Text(symp2,textAlign: TextAlign.center,),
+
+              if(widget.location.toInt()==2)
+                Text(symp3,textAlign: TextAlign.center,),
+
+              if(widget.location.toInt()==3)
+                Text(symp4,textAlign: TextAlign.center,),
+
+
+              // if(widget.location.toInt()==0)
+              //   // for(int y=0;y<symp1.length;y++)
+              //   //   Text(symp1[y].toString()),
+              //
+              // if(widget.location.toInt()==1)
+              //   // for(int y=0;y<symp2.length;y++)
+              //   //   Text(symp2[y].toString()),
+              //
+              // if(widget.location.toInt()==2)
+              //   // for(int y=0;y<symp3.length;y++)
+              //   //   Text(symp3[y].toString()),
+              //
+              // if(widget.location.toInt()==3)
+              //   // for(int y=0;y<symp4.length;y++)
+              //   //   Text(symp4[y].toString()),
+
+
+              // Text("If any Symptoms, place here"),
+              // Text("If any Symptoms, place here"),
               Text("\n"),
 
               Divider(
@@ -68,7 +99,19 @@ class MydiseaseState extends State<disease> {
               ),
 
               Text("Treatment\n",textAlign: TextAlign.center,),
-              Text("If any treatment, place here"),
+              //Text("If any treatment, place here"),
+
+              if(widget.location.toInt()==0)
+                Text(treat1,textAlign: TextAlign.center,),
+
+              if(widget.location.toInt()==1)
+                Text(treat2,textAlign: TextAlign.center,),
+
+              if(widget.location.toInt()==2)
+                Text(treat3,textAlign: TextAlign.center,),
+
+              if(widget.location.toInt()==3)
+                Text(treat4,textAlign: TextAlign.center,),
 
               TextButton(
                 style: ButtonStyle(
