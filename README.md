@@ -7,3 +7,6 @@ Sync project with gradle files if necessary. See flutter documentation
 Choose emulator, then click on run project and project will be opened and run.
 
 Navigate in the app by pressing relevant buttons to explore the functionalities.
+
+
+Python scripts are running on google cloud console to mine data for the application and pushing to firebase database.
