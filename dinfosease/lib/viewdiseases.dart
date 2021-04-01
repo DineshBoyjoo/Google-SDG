@@ -47,11 +47,26 @@ class MydiseaseState extends State<disease> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Image.network(mediaURL[widget.location.toInt()],width:50,height:50),
+
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(mediaURL[widget.location.toInt()]),
+                        //whatever image you can put here
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+
+                  //Image.network(mediaURL[widget.location.toInt()],width:50,height:50),
                   Column(children: [
                     Text("Communicable Disease"),
                     Text(diseaseName[widget.location.toInt()]),
                     Text(activeCountDisease[widget.location.toInt()].toString()+" Active Cases"),
+                    Text(DeathCountDisease[widget.location.toInt()].toString()+" Death till now"),
+                    Text(RecoverCountDisease[widget.location.toInt()].toString()+" Recovered till now"),
                   ],),
                 ],
               ),
@@ -105,13 +120,13 @@ class MydiseaseState extends State<disease> {
                 Text(treat1,textAlign: TextAlign.center,),
 
               if(widget.location.toInt()==1)
-                Text(treat2,textAlign: TextAlign.center,),
+                Text(treat1,textAlign: TextAlign.center,), //Use treat2 when extending app to allow treatments to be fetched from JSON
 
               if(widget.location.toInt()==2)
-                Text(treat3,textAlign: TextAlign.center,),
+                Text(treat1,textAlign: TextAlign.center,), //Use treat3 when extending app to allow treatments to be fetched from JSON
 
               if(widget.location.toInt()==3)
-                Text(treat4,textAlign: TextAlign.center,),
+                Text(treat1,textAlign: TextAlign.center,), //Use treat4 when extending app to allow treatments to be fetched from JSON
 
               TextButton(
                 style: ButtonStyle(

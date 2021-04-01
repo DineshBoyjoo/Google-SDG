@@ -14,21 +14,11 @@ import 'package:geolocator/geolocator.dart' ;
   var _phoneNum = ""; //Global Var used to capture input data and write to text file
 
   void main() {
-
-
-
-
-
-
-
-
-
-
+    fetchData();
     runApp(MyApp());
   }
 
 _initialiseDinfoSEASE() async {
-
 
   Position getCountry = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   final coordinates = new Coordinates(getCountry.latitude, getCountry.longitude);
@@ -48,27 +38,18 @@ _initialiseDinfoSEASE() async {
   print("----------DEBUG----------");
 
 
-
-
-
-
   //Populating Symptoms List
   // symp1.add("qwerty");
   // symp1.add("asdf");
   // symp1.add("zxcv");
-  //
   // symp2.add("qwerty");
   // symp2.add("asdf");
-  //
   // symp3.add("qwerty");
   // symp3.add("asdf");
   // symp3.add("zxcv");
-  //
   // symp4.add("qwerty");
 
 }
-
-
 
 
   class MyApp extends StatelessWidget {
@@ -132,6 +113,9 @@ _initialiseDinfoSEASE() async {
 
          return widget.storage.writeContact(compon);
        }
+
+
+
 
       @override
       Widget build(BuildContext context) {
