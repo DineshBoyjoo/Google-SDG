@@ -12,7 +12,7 @@ git clone https://github.com/D-Roshan/Google-SDG.git
 ```
 
 Next, open the `dinfosease` folder in android studio.
-Sync project with gradle files if necessary. See flutter documentation
+Sync project with gradle files if necessary (See flutter documentation for more details).
 Choose emulator, then click on run project and project will be opened and run.
 
 ABOUT APP:
