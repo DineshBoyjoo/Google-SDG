@@ -1,0 +1,11 @@
+requests
+bs4
+firebase
+gcloud
+pypopulation
+python_jwt
+six
+sseclient
+pycryptodome==3.10.1
+requests_toolbelt
+protobuf==3.12.0
