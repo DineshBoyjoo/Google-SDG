@@ -35,4 +35,4 @@ The python script `main.py` mines data from the web then appends the data to a J
 Firebase realtime database was initially used to upload the JSON data but the database was disabled due to billing problems, so,
 a free alternate hosting service was used to host the generated json file from the python script for the app to retrieve and display. Firebase codes have been kept commented for references.
 
-MORE INFO IN VIDEO:
+MORE INFO IN VIDEO: https://www.youtube.com/watch?v=vfsoC0O5C8w&ab_channel=AyushBojo
