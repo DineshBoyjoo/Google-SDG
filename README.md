@@ -2,6 +2,7 @@
 
 
 ![Python minimum version](https://img.shields.io/badge/Python-3.8%2B-brightgreen)
+
 ABOUT PROJECT:
 
 The goal of this app is to facilitate awareness of every Communicable diseases that is trending in a country by providing relevant data like for example the number of infected people, ect. The app acts as an easy place to find the needed information and updates and it also provides and SOS feature and a tab for advices. For this demo, we used Mauritius as an example and COVID-19 as a main priority and other recently trended diseases such as Malaria and more. The app could be further improved to provide more information such as a map and more.
