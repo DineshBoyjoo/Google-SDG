@@ -22,6 +22,8 @@ Next, open the `dinfosease` folder in android studio.
 Sync project with gradle files if necessary.
 Choose emulator, then click on run project and project will be opened and run.
 
+You can also install the dinfosease.apk application on an android phone to use it
+
 ABOUT APP:
 
 Navigate the app by interacting with the relevant buttons to explore the various tabs and functionalities.
