@@ -37,4 +37,5 @@ Firebase realtime database was initially used to upload the JSON data but the da
 a free alternate hosting service was used to host the generated json file from the python script for the app to retrieve and display. Firebase codes have been kept commented for references.
 
 MORE INFO IN VIDEO: 
+
 [![Google DSC Solution Challenge - DinfoSEASE](http://img.youtube.com/vi/vfsoC0O5C8w/0.jpg)](http://www.youtube.com/watch?v=vfsoC0O5C8w)
