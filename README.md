@@ -21,7 +21,7 @@ pip install -r requirements.txt
 Next, open the `dinfosease` folder in Android Studio.
 Sync project with gradle files if necessary.
 Choose emulator, then click on run project and project will be opened and run
-OR you can simply install the `.apk` file on your Android Phone.
+OR you can simply install the `.apk` file in your Android Phone.
 
 ABOUT APP:
 
