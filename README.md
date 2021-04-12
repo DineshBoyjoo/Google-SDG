@@ -21,7 +21,7 @@ pip install -r requirements.txt
 Next, open the `dinfosease` folder in Android Studio.
 Sync project with gradle files if necessary.
 Choose emulator, then click on run project and project will be opened and run
-OR simply install the `.apk` file on your Android Phone.
+OR you can simply install the `.apk` file on your Android Phone.
 
 ABOUT APP:
 
@@ -38,4 +38,6 @@ a free alternate hosting service was used to host the generated json file from t
 
 MORE INFO IN VIDEO: 
 
-[![Google DSC Solution Challenge - DinfoSEASE](http://img.youtube.com/vi/vfsoC0O5C8w/0.jpg)](http://www.youtube.com/watch?v=vfsoC0O5C8w)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=vfsoC0O5C8w
+" target="_blank"><img src="http://img.youtube.com/vi/vfsoC0O5C8w/0.jpg" 
+alt="Google DSC Solution Challenge - DinfoSEASE" width="240" height="180" border="10" /></a>
