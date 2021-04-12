@@ -38,6 +38,4 @@ a free alternate hosting service was used to host the generated json file from t
 
 MORE INFO IN VIDEO: 
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=vfsoC0O5C8w
-" target="_blank"><img src="http://img.youtube.com/vi/vfsoC0O5C8w/0.jpg" 
-alt="Google DSC Solution Challenge - DinfoSEASE" width="240" height="180" border="10" /></a>
+[![Google DSC Solution Challenge - DinfoSEASE](https://img.youtube.com/vi/vfsoC0O5C8w/maxresdefault.jpg)](https://youtu.be/vfsoC0O5C8w)
