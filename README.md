@@ -18,9 +18,10 @@ Install the required dependencies:
 pip install -r requirements.txt
 ```
 
-Next, open the `dinfosease` folder in android studio.
+Next, open the `dinfosease` folder in Android Studio.
 Sync project with gradle files if necessary.
-Choose emulator, then click on run project and project will be opened and run.
+Choose emulator, then click on run project and project will be opened and run
+OR simply install the `.apk` file on your Android Phone.
 
 ABOUT APP:
 
@@ -35,4 +36,5 @@ The python script `main.py` mines data from the web then appends the data to a J
 Firebase realtime database was initially used to upload the JSON data but the database was disabled due to billing problems, so,
 a free alternate hosting service was used to host the generated json file from the python script for the app to retrieve and display. Firebase codes have been kept commented for references.
 
-MORE INFO IN VIDEO: https://www.youtube.com/watch?v=vfsoC0O5C8w&ab_channel=AyushBojo
+MORE INFO IN VIDEO: 
+[![Google DSC Solution Challenge - DinfoSEASE](http://img.youtube.com/vi/vfsoC0O5C8w/0.jpg)](http://www.youtube.com/watch?v=vfsoC0O5C8w)
